@@ -15,18 +15,42 @@ import { RouterOutlet } from '@angular/router';
     gap: 1rem;
   "
   >
-    @for(user of userDatasList; track user.id) { @if(user.profession ===
+    <button (click)="renderBlock = true">Click</button>
+
+    @defer(when renderBlock) {
+    <h3 style="color: red">Element rendered on interaction</h3>
+    } @placeholder {
+    <span> Conteudo inicial do placeholder. </span>
+    } @loading {
+    <span> Carregando... </span>
+    } @error {
+    <span> Error... </span>
+    }
+
+    <!-- @for(user of userDatasList; track user.id) { @switch (user.age) { @case (20)
+    {
+    <span style="color: chartreuse">{{ user.name }} is {{ user.age }}</span>
+    } @case(30) {
+    <span style="color: green">{{ user.name }} is {{ user.age }}</span>
+    } @default {
+    <span style="color: red">{{ user.name }} is {{ user.age }}</span>
+    } } } @empty {
+    <span>Dont have datas to show</span>
+    } -->
+
+    <!--@if(user.profession ===
     'Software Developer') {
     <span style="color: chartreuse">{{ user.name }} is Software Developer</span>
     } @else if(user.profession === 'Scrum Master') {
     <span style="color: cadetblue">{{ user.name }} is a Scrum Master</span> }
     @else {
     <span style="color: black">{{ user.name }} is {{ user.profession }}</span>
-    } }
+    } } -->
   </div> `,
   styles: [],
 })
 export class AppComponent {
+  renderBlock = false;
   title = 'learnAngular17';
   userDatasList: Array<{
     name: string;
