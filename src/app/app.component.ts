@@ -1,10 +1,19 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { InputTransformComponent } from './components/input-transform/input-transform.component';
+
+export interface User {
+  name: string;
+  age: string;
+  profession: string;
+  id: string;
+}
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule, RouterOutlet, InputTransformComponent],
   template: `<div
     style="
     background-color: blanchedalmond;
@@ -15,7 +24,12 @@ import { RouterOutlet } from '@angular/router';
     gap: 1rem;
   "
   >
-    <button (click)="renderBlock = true">Click</button>
+    <app-input-transform
+      [userAge]="userDatasList[0].age"
+      [showUserAge]="showUser"
+    />
+
+    <!-- <button (click)="renderBlock = true">Click</button>
 
     @defer(when renderBlock) {
     <h3 style="color: red">Element rendered on interaction</h3>
@@ -25,7 +39,7 @@ import { RouterOutlet } from '@angular/router';
     <span> Carregando... </span>
     } @error {
     <span> Error... </span>
-    }
+    } -->
 
     <!-- @for(user of userDatasList; track user.id) { @switch (user.age) { @case (20)
     {
@@ -50,17 +64,13 @@ import { RouterOutlet } from '@angular/router';
   styles: [],
 })
 export class AppComponent {
+  showUser = 'true';
   renderBlock = false;
   title = 'learnAngular17';
-  userDatasList: Array<{
-    name: string;
-    age: number;
-    profession: string;
-    id: string;
-  }> = [
-    { age: 20, name: 'Marcos', profession: 'Software Developer', id: '123' },
-    { age: 30, name: 'Marcelo', profession: 'Software Developer', id: '456' },
-    { age: 40, name: 'Carlos', profession: 'Scrum Master', id: '789' },
-    { age: 30, name: 'Maria', profession: 'UX Designer', id: '123' },
+  userDatasList: Array<User> = [
+    { age: '20', name: 'Marcos', profession: 'Software Developer', id: '123' },
+    { age: '30', name: 'Marcelo', profession: 'Software Developer', id: '456' },
+    { age: '40', name: 'Carlos', profession: 'Scrum Master', id: '789' },
+    { age: '30', name: 'Maria', profession: 'UX Designer', id: '123' },
   ];
 }
